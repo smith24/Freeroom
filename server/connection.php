@@ -1,5 +1,5 @@
 <?php
-//hello
+
 function openConnection () {
 	$Link = mysql_connect('localhost','root','');
 	@mysql_query("SET NAMES 'cp1251'", $Link);
