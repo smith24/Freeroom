@@ -8,7 +8,7 @@
 require_once '../componentsOfUsersMVC/RequestClass.php';
 
 class ControllerOfDispatcherRequest {
-	function ControllerOfDispatcherRequest () {
+	function ControllerOfDispatcherRequest () {	
 		$this->$modelOfDispatcherRequest = new ModelOfDispatcherRequest;
 		$this->$viewOfDispatcherRequest = new ViewOfDispatcherRequest;
 	}
