@@ -9,29 +9,14 @@ function ControllerOfIndividualShedule () {
 	//7. 
 	this.modelOfIndividualShedule = new ModelOfIndividualShedule();
 	this.viewOfIndividualShedule = new ViewOfIndividualShedule();
-}
-
-
-function ModelOfIndividualShedule () {
-	//0. constructor = getIndividualShedule() + getEvent()
-	//1. getIndividualShedule = function of AJAX (aud, week1, week2). return HTML of individual shedule of selected aud.
-	//3. showOrder = function (...pre-set of parametrs to fill order's field ...). fill field of orderMenuWindow
-	//4. checkOrderParametrs = function (). validate paametrs of order. (? AJAX to check on server complicated parametrs, or only client checker ?)
-	//5. makeOrder = function of AJAX (...full set of order's parametrs...). send to server the order pack . return status: 
-					// if OK -> order added in stack -> also return HTML from server and call modelOfUserRequests.addNewRequest()
-					// else say some attention message "Your request is suck. try again.."
-	//6.
-}
-
-function ViewOfIndividualShedule () {
 	this.showMe = function (idAuditory, dataStart,guest) { // great fucking function. need to be fixed!
-		function showTableWithOtherTime(idAuditory, dataStart,guest) {
-			var dayTrans = ""; // день недели для обращения к нужной таблице бд латинскими буквами
+		//function showTableWithOtherTime(idAuditory, dataStart,guest) {
+			var dayTrans = ""; // day of week for reqiest to table of database in latin1
 			var tmp = cur_head; 
 			if (dataStart) {
 				var month;
 				var day;
-				var chet = ""; // указывает четная или нечетная неделя even or odd
+				var chet = ""; //  even or odd
 				var year;
 				var d = new Date((86400 * 7 + dataStart) * 1000);
 				month = d.getMonth() + 1;
@@ -65,19 +50,17 @@ function ViewOfIndividualShedule () {
 						break;
 				}
 				
-			if ((getWeekNum(dataStart*1000) + 1)  % 2) {
-				chet = "odd";		
-			} else {
-				chet = "even";
-			}
-				//alert(strDate);
+				if ((getWeekNum(dataStart*1000) + 1)  % 2) {
+					chet = "odd";		
+				} else {
+					chet = "even";
+				}
 			} else {
 				if (!tmp)
 					tmp = $('#evenT a').html();
 				var strDateTmp = tmp.split(' ');
 				var dayOfDateTmp = strDateTmp[0].split(',');
-				var dayOfDate = dayOfDateTmp[0]; // день недели по-русски
-				//alert(dayOfDate);
+				var dayOfDate = dayOfDateTmp[0]; // day of week in russian
 				switch (dayOfDate) {
 					case "Понедельник":
 						dayTrans = "mon";
@@ -104,7 +87,7 @@ function ViewOfIndividualShedule () {
 						alert("Неправильный день недели.");
 				}
 				var strDateTmp2 = strDateTmp[1].split('/');
-				var strDate = strDateTmp2[2]+"-"+strDateTmp2[1]+"-"+strDateTmp2[0]; // выбранная дата в формате YYYY-mm-dd
+				var strDate = strDateTmp2[2]+"-"+strDateTmp2[1]+"-"+strDateTmp2[0]; // selected date at format YYYY-mm-dd
 				idAuditory = idAuditory.replace(/[^0-9]/,"");
 				if (cur_week == 2) {
 					chet = "even";
@@ -113,10 +96,10 @@ function ViewOfIndividualShedule () {
 				}
 			}
 			tmp = $('div[class*="AccordionPara"] h3[aria-selected="true"] a').html();
-			var numPar = cur_time; // содержит номер пары, на которую открыто рассписание
+			var numPar = cur_time; // consider of number para, which was opened schedule
 
 			var table = "";
-			//alert("real=dataAboutAuditory&chet="+chet+"&date="+strDate+"&dayTrans="+dayTrans+"&numPar="+numPar+"&idAuditory="+idAuditory);
+			// this is a first, who will go to model
 			$.ajax({
 				url: "ajaxScripts.php",
 				type: "POST",
@@ -167,8 +150,24 @@ function ViewOfIndividualShedule () {
 				}
 			});
 			
-		}
+		//}
 	}
+}
+
+
+function ModelOfIndividualShedule () {
+	//0. constructor = getIndividualShedule() + getEvent()
+	//1. getIndividualShedule = function of AJAX (aud, week1, week2). return HTML of individual shedule of selected aud.
+	//3. showOrder = function (...pre-set of parametrs to fill order's field ...). fill field of orderMenuWindow
+	//4. checkOrderParametrs = function (). validate paametrs of order. (? AJAX to check on server complicated parametrs, or only client checker ?)
+	//5. makeOrder = function of AJAX (...full set of order's parametrs...). send to server the order pack . return status: 
+					// if OK -> order added in stack -> also return HTML from server and call modelOfUserRequests.addNewRequest()
+					// else say some attention message "Your request is suck. try again.."
+	//6.
+}
+
+function ViewOfIndividualShedule () {
+	
 	this.hideMe = function () {
 		
 	}

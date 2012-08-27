@@ -1,8 +1,8 @@
 <?php
 
-require_once '../componentsOfUsersMVC/mapsMVC.php';
-require_once '../componentsOfUsersMVC/eventMVC.php';
-require_once '../componentsOfUsersMVC/individualSheduleMVC.php';
+require_once ('../componentsOfUsersMVC/mapsMVC.php');
+require_once ('../componentsOfUsersMVC/eventMVC.php');
+require_once ('../componentsOfUsersMVC/individualSheduleMVC.php');
 
 class ControllerOfGuest {
 	function ControllerOfGuest () {
